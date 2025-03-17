@@ -1,227 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User</title>
+    <title>User Management</title>
     <style>
-      body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f4f4;
-        color: #333;
-        margin: 0;
-        padding: 0;
-      }
-      h1 {
-        text-align: center;
-        color: #444;
-      }
-      form {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 2rem;
-      }
-      form span {
-        display: flex;
-        align-items: center;
-        margin: 0 1rem;
-      }
-      label {
-        margin-right: 0.5rem;
-      }
-      input {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-      button {
-        padding: 0.5rem 1rem;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      button:hover {
-        background-color: #218838;
-      }
-      table {
-        width: 80%;
-        margin: 0 auto;
-        border-collapse: collapse;
-        background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      th, td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-      th {
-        background-color: #f8f9fa;
-      }
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-      .option-button {
-        padding: 0.5rem;
-        margin: 0 0.25rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      .edit-button {
-        background-color: #ffc107;
-        color: white;
-      }
-      .delete-button {
-        background-color: #dc3545;
-        color: white;
-      }
-      .edit-button:hover {
-        background-color: #e0a800;
-      }
-      .delete-button:hover {
-        background-color: #c82333;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        to {
-          opacity: 1;
+
+        h1 {
+            text-align: center;
+            color: #444;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-      }
-      .fade-in {
-        animation: fadeIn 0.5s ease-in;
-      }
+
+        form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        form span {
+            display: flex;
+            align-items: center;
+            flex: 1 1 calc(33.333% - 1rem);
+        }
+
+        label {
+            margin-right: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            flex: 1 1 100%;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        main {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1000px;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #444;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .option-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .edit-button {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .edit-button:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 1rem;
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #28a745;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
-  </head>
-  <body>
-    <h1>Data User</h1>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>User Management</h1>
     <form id="user-form">
-      <span>
-        <label for="name">Nama</label>
-        <input
-          data-id
-          id="name"
-          type="text"
-          placeholder="Masukkan nama"
-          required
-        />
-      </span>
-      <span>
-        <label for="email">Email</label>
-        <input
-          data-id
-          id="email"
-          type="text"
-          placeholder="Masukkan email"
-          required
-        />
-      </span>
-      <span>
-        <label for="gender">Gender</label>
-        <input
-          data-id
-          id="gender"
-          type="text"
-          placeholder="Masukkan gender"
-          required
-        />
-      </span>
-      <button type="submit" id="submit-button">Simpan</button>
+        <span>
+            <label for="name">Nama</label>
+            <input id="name" type="text" placeholder="Masukkan nama" required />
+        </span>
+        <span>
+            <label for="email">Email</label>
+            <input id="email" type="text" placeholder="Masukkan email" required />
+        </span>
+        <span>
+            <label for="gender">Gender</label>
+            <input id="gender" type="text" placeholder="Masukkan gender" required />
+        </span>
+        <button type="submit" id="submit-button">Simpan</button>
     </form>
     <main>
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Gender</th>
-            <th colspan="2">Option</th>
-          </tr>
-        </thead>
-        <tbody id="table-user"></tbody>
-      </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th colspan="2">Option</th>
+                </tr>
+            </thead>
+            <tbody id="table-user"></tbody>
+        </table>
     </main>
-    <script>
-      let isEditing = false;
-      let editRow = null;
 
-      document.getElementById('user-form').addEventListener('submit', function (event) {
-        event.preventDefault();
+    <footer>
+        Designed with ❤️ by <a href="#" target="_blank">Arya Ade Wiguna</a>
+    </footer>
 
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const gender = document.getElementById('gender').value;
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="index.js"></script>
+</body>
 
-        if (isEditing) {
-          editRow.cells[1].textContent = name;
-          editRow.cells[2].textContent = email;
-          editRow.cells[3].textContent = gender;
-
-          document.getElementById('submit-button').textContent = 'Simpan';
-          isEditing = false;
-          editRow = null;
-        } else {
-          
-          const newRow = document.createElement('tr');
-          newRow.classList.add('fade-in');
-
-          const rowNumber = document.querySelectorAll('#table-user tr').length + 1;
-
-          newRow.innerHTML = `
-            <td>${rowNumber}</td>
-            <td>${name}</td>
-            <td>${email}</td>
-            <td>${gender}</td>
-            <td>
-              <button class="option-button edit-button">Edit</button>
-              <button class="option-button delete-button">Delete</button>
-            </td>
-          `;
-
-          document.getElementById('table-user').appendChild(newRow);
-
-          
-          newRow.querySelector('.edit-button').addEventListener('click', function () {
-            editUser(newRow);
-          });
-
-          newRow.querySelector('.delete-button').addEventListener('click', function () {
-            this.closest('tr').remove();
-            updateRowNumbers();
-          });
-        }
-
-        
-        document.getElementById('user-form').reset();
-      });
-
-      function editUser(row) {
-       
-        document.getElementById('name').value = row.cells[1].textContent;
-        document.getElementById('email').value = row.cells[2].textContent;
-        document.getElementById('gender').value = row.cells[3].textContent;
-
-      
-        document.getElementById('submit-button').textContent = 'Update';
-
-     
-        isEditing = true;
-        editRow = row;
-      }
-
-      function updateRowNumbers() {
-        const rows = document.querySelectorAll('#table-user tr');
-        rows.forEach((row, index) => {
-          row.querySelector('td').textContent = index + 1;
-        });
-      }
-    </script>
-  </body>
 </html>
