@@ -132,7 +132,7 @@
           required
         />
       </span>
-      <button type="submit">Simpan</button>
+      <button type="submit" id="submit-button">Simpan</button>
     </form>
     <main>
       <table>
@@ -148,8 +148,10 @@
         <tbody id="table-user"></tbody>
       </table>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+      let isEditing = false;
+      let editRow = null;
+
       document.getElementById('user-form').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -157,37 +159,64 @@
         const email = document.getElementById('email').value;
         const gender = document.getElementById('gender').value;
 
-        const newRow = document.createElement('tr');
-        newRow.classList.add('fade-in');
+        if (isEditing) {
+          // Update existing row
+          editRow.cells[1].textContent = name;
+          editRow.cells[2].textContent = email;
+          editRow.cells[3].textContent = gender;
 
-        const rowNumber = document.querySelectorAll('#table-user tr').length + 1;
+          // Reset form and button
+          document.getElementById('submit-button').textContent = 'Simpan';
+          isEditing = false;
+          editRow = null;
+        } else {
+          // Add new row
+          const newRow = document.createElement('tr');
+          newRow.classList.add('fade-in');
 
-        newRow.innerHTML = `
-          <td>${rowNumber}</td>
-          <td>${name}</td>
-          <td>${email}</td>
-          <td>${gender}</td>
-          <td>
-            <button class="option-button edit-button">Edit</button>
-            <button class="option-button delete-button">Delete</button>
-          </td>
-        `;
+          const rowNumber = document.querySelectorAll('#table-user tr').length + 1;
 
-        document.getElementById('table-user').appendChild(newRow);
+          newRow.innerHTML = `
+            <td>${rowNumber}</td>
+            <td>${name}</td>
+            <td>${email}</td>
+            <td>${gender}</td>
+            <td>
+              <button class="option-button edit-button">Edit</button>
+              <button class="option-button delete-button">Delete</button>
+            </td>
+          `;
+
+          document.getElementById('table-user').appendChild(newRow);
+
+          // Add event listeners to new buttons
+          newRow.querySelector('.edit-button').addEventListener('click', function () {
+            editUser(newRow);
+          });
+
+          newRow.querySelector('.delete-button').addEventListener('click', function () {
+            this.closest('tr').remove();
+            updateRowNumbers();
+          });
+        }
 
         // Clear form
         document.getElementById('user-form').reset();
-
-        // Add event listeners to new buttons
-        newRow.querySelector('.edit-button').addEventListener('click', function () {
-          alert('Edit functionality not implemented yet.');
-        });
-
-        newRow.querySelector('.delete-button').addEventListener('click', function () {
-          this.closest('tr').remove();
-          updateRowNumbers();
-        });
       });
+
+      function editUser(row) {
+        // Fill form with row data
+        document.getElementById('name').value = row.cells[1].textContent;
+        document.getElementById('email').value = row.cells[2].textContent;
+        document.getElementById('gender').value = row.cells[3].textContent;
+
+        // Change button text to "Update"
+        document.getElementById('submit-button').textContent = 'Update';
+
+        // Set editing state
+        isEditing = true;
+        editRow = row;
+      }
 
       function updateRowNumbers() {
         const rows = document.querySelectorAll('#table-user tr');
