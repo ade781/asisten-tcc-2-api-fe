@@ -5,17 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User</title>
     <style>
-      table,
-      th,
-      td {
-        border: 1px solid black;
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        text-align: center;
+        color: #444;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+      form span {
+        display: flex;
+        align-items: center;
+        margin: 0 1rem;
+      }
+      label {
+        margin-right: 0.5rem;
+      }
+      input {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+      table {
+        width: 80%;
+        margin: 0 auto;
         border-collapse: collapse;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f8f9fa;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      .option-button {
+        padding: 0.5rem;
+        margin: 0 0.25rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .edit-button {
+        background-color: #ffc107;
+        color: white;
+      }
+      .delete-button {
+        background-color: #dc3545;
+        color: white;
+      }
+      .edit-button:hover {
+        background-color: #e0a800;
+      }
+      .delete-button:hover {
+        background-color: #c82333;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
       }
     </style>
   </head>
   <body>
     <h1>Data User</h1>
-    <form>
+    <form id="user-form">
       <span>
         <label for="name">Nama</label>
         <input
@@ -26,7 +112,7 @@
           required
         />
       </span>
-      <span style="margin-left: 1rem">
+      <span>
         <label for="email">Email</label>
         <input
           data-id
@@ -36,7 +122,7 @@
           required
         />
       </span>
-      <span style="margin-left: 1rem">
+      <span>
         <label for="gender">Gender</label>
         <input
           data-id
@@ -48,7 +134,7 @@
       </span>
       <button type="submit">Simpan</button>
     </form>
-    <main style="margin-top: 1rem">
+    <main>
       <table>
         <thead>
           <tr>
@@ -63,6 +149,52 @@
       </table>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="index.js"></script>
+    <script>
+      document.getElementById('user-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const gender = document.getElementById('gender').value;
+
+        const newRow = document.createElement('tr');
+        newRow.classList.add('fade-in');
+
+        const rowNumber = document.querySelectorAll('#table-user tr').length + 1;
+
+        newRow.innerHTML = `
+          <td>${rowNumber}</td>
+          <td>${name}</td>
+          <td>${email}</td>
+          <td>${gender}</td>
+          <td>
+            <button class="option-button edit-button">Edit</button>
+            <button class="option-button delete-button">Delete</button>
+          </td>
+        `;
+
+        document.getElementById('table-user').appendChild(newRow);
+
+        // Clear form
+        document.getElementById('user-form').reset();
+
+        // Add event listeners to new buttons
+        newRow.querySelector('.edit-button').addEventListener('click', function () {
+          alert('Edit functionality not implemented yet.');
+        });
+
+        newRow.querySelector('.delete-button').addEventListener('click', function () {
+          this.closest('tr').remove();
+          updateRowNumbers();
+        });
+      });
+
+      function updateRowNumbers() {
+        const rows = document.querySelectorAll('#table-user tr');
+        rows.forEach((row, index) => {
+          row.querySelector('td').textContent = index + 1;
+        });
+      }
+    </script>
   </body>
 </html>
