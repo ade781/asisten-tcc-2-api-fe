@@ -160,17 +160,15 @@
         const gender = document.getElementById('gender').value;
 
         if (isEditing) {
-          // Update existing row
           editRow.cells[1].textContent = name;
           editRow.cells[2].textContent = email;
           editRow.cells[3].textContent = gender;
 
-          // Reset form and button
           document.getElementById('submit-button').textContent = 'Simpan';
           isEditing = false;
           editRow = null;
         } else {
-          // Add new row
+          
           const newRow = document.createElement('tr');
           newRow.classList.add('fade-in');
 
@@ -189,7 +187,7 @@
 
           document.getElementById('table-user').appendChild(newRow);
 
-          // Add event listeners to new buttons
+          
           newRow.querySelector('.edit-button').addEventListener('click', function () {
             editUser(newRow);
           });
@@ -200,20 +198,20 @@
           });
         }
 
-        // Clear form
+        
         document.getElementById('user-form').reset();
       });
 
       function editUser(row) {
-        // Fill form with row data
+       
         document.getElementById('name').value = row.cells[1].textContent;
         document.getElementById('email').value = row.cells[2].textContent;
         document.getElementById('gender').value = row.cells[3].textContent;
 
-        // Change button text to "Update"
+      
         document.getElementById('submit-button').textContent = 'Update';
 
-        // Set editing state
+     
         isEditing = true;
         editRow = row;
       }
